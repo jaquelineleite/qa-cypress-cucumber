@@ -2,22 +2,25 @@
 
 ## Descrição
 
-Projeto desenvolvido como teste técnico para automação de testes Web e API utilizando **Cypress**, **JavaScript** e **Cucumber (BDD)**, seguindo o padrão **Page Object Model (POM)**.
+Projeto desenvolvido como teste técnico para automação de testes **Web** e **API**, utilizando **Cypress**, **JavaScript** e **Cucumber (BDD)**, seguindo o padrão **Page Object Model (POM)**.
 
 O objetivo deste projeto é demonstrar boas práticas de automação de testes, organização do framework, reutilização de código e validação de funcionalidades Web e API.
+
+O projeto contempla todos os desafios propostos no teste técnico, incluindo cenários positivos e negativos, geração automática de evidências e organização baseada em BDD.
 
 ---
 
 # Objetivo
 
-Automatizar os principais fluxos da aplicação Web e um cenário de API utilizando Cypress e Cucumber, implementando boas práticas como:
+Automatizar os fluxos solicitados no desafio técnico utilizando Cypress e Cucumber, implementando boas práticas como:
 
 - BDD (Behavior Driven Development)
 - Page Object Model (POM)
 - Organização por Features
-- Reutilização de código
-- Evidências automáticas (Screenshots)
 - Separação entre Features, Step Definitions e Page Objects
+- Reutilização de código
+- Massa de dados em Fixtures
+- Evidências automatizadas
 
 ---
 
@@ -33,7 +36,72 @@ Automatizar os principais fluxos da aplicação Web e um cenário de API utiliza
 
 # Estrutura do projeto
 
+```text
+qa-cypress-cucumber
+│
+├── cypress
+│   ├── e2e
+│   │   ├── features
+│   │   │   ├── login.feature
+│   │   │   ├── search.feature
+│   │   │   ├── add_to_cart.feature
+│   │   │   ├── checkout.feature
+│   │   │   └── api_trello.feature
+│   │   │
+│   │   └── step_definitions
+│   │       ├── loginSteps.js
+│   │       ├── searchSteps.js
+│   │       ├── cartSteps.js
+│   │       ├── checkoutSteps.js
+│   │       └── apiSteps.js
+│   │
+│   ├── fixtures
+│   │   └── users.json
+│   │
+│   ├── evidencias
+│   │
+│   └── support
+│       ├── page_objects
+│       ├── commands.js
+│       └── e2e.js
+│
+├── cypress.config.js
+├── package.json
+├── package-lock.json
+├── README.md
+└── .env.example
+```
 
+---
+
+# Arquitetura
+
+O projeto foi estruturado utilizando o padrão **Page Object Model (POM)**.
+
+A arquitetura adotada proporciona:
+
+- Separação das responsabilidades
+- Reutilização de código
+- Facilidade de manutenção
+- Baixo acoplamento
+- Maior legibilidade dos testes
+
+---
+
+# Padrão BDD
+
+Os cenários foram escritos utilizando **Cucumber (Gherkin)** através das palavras-chave:
+
+- Feature
+- Scenario
+- Given
+- When
+- Then
+- And
+
+Essa abordagem aproxima os testes da linguagem de negócio, facilitando a comunicação entre QA, Desenvolvimento e Negócio.
+
+---
 
 # Pré-requisitos
 
@@ -49,10 +117,10 @@ Antes de executar o projeto é necessário possuir instalado:
 Clone o repositório:
 
 ```bash
-git clone https://gitlab.com/jaquelinefdeandrade/qa-cypress-cucumber.git
+git clone https://github.com/jaquelineleite/qa-cypress-cucumber.git
 ```
 
-Acesse a pasta do projeto:
+Acesse a pasta:
 
 ```bash
 cd qa-cypress-cucumber
@@ -66,18 +134,48 @@ npm install
 
 ---
 
-# Executando os testes
+# Execução dos testes
 
-## Modo interativo
+## Executar todos os testes
+
+```bash
+npm run cy:run
+```
+
+## Executar em modo interativo
 
 ```bash
 npx cypress open
 ```
 
-## Modo Headless
+## Executar apenas Login
 
 ```bash
-npm run cy:run
+npx cypress run --spec "cypress/e2e/features/login.feature"
+```
+
+## Executar apenas Busca
+
+```bash
+npx cypress run --spec "cypress/e2e/features/search.feature"
+```
+
+## Executar apenas Carrinho
+
+```bash
+npx cypress run --spec "cypress/e2e/features/add_to_cart.feature"
+```
+
+## Executar apenas Checkout
+
+```bash
+npx cypress run --spec "cypress/e2e/features/checkout.feature"
+```
+
+## Executar apenas API
+
+```bash
+npx cypress run --spec "cypress/e2e/features/api_trello.feature"
 ```
 
 ---
@@ -86,44 +184,74 @@ npm run cy:run
 
 ## Login
 
-- Login válido
-- Login inválido
+### Positivo
+
+- Realizar login utilizando credenciais válidas.
+
+### Negativo
+
+- Impedir login utilizando credenciais inválidas.
+
+---
 
 ## Busca
 
-- Busca de produto existente
-- Busca de produto inexistente
+### Positivo
+
+- Pesquisar produto existente.
+
+### Negativo
+
+- Pesquisar produto inexistente.
+
+---
 
 ## Carrinho
 
-- Adicionar produto ao carrinho
-- Validar carrinho vazio
+### Positivo
+
+- Adicionar produto ao carrinho.
+
+### Negativo
+
+- Validar carrinho vazio.
+
+---
 
 ## Checkout
 
-- Validar produto na tela de pagamento
-- Validar checkout sem produtos
+### Positivo
+
+- Validar que o produto adicionado ao carrinho é apresentado corretamente na tela de pagamento.
+
+### Negativo
+
+- Impedir checkout quando o carrinho estiver vazio.
+
+---
 
 ## API Trello
 
-Foi automatizado um cenário para validação da API:
+### Positivo
 
-**GET**
+Realizar uma requisição GET para:
 
 ```
 https://api.trello.com/1/actions/592f11060f95a3d3d46a987a
 ```
 
-### Validações realizadas
+Validando:
 
 - Status Code 200
 - Campo `list.name`
 
-Também foi implementado um cenário negativo utilizando uma URL inválida.
+### Negativo
+
+Validar retorno utilizando uma URL inválida.
 
 ---
 
-# Site utilizado
+# Aplicação utilizada
 
 https://www.automationexercise.com
 
@@ -137,7 +265,7 @@ https://api.trello.com/1/actions/592f11060f95a3d3d46a987a
 
 # Evidências
 
-Durante a execução dos testes são gerados automaticamente screenshots dos cenários Web.
+Durante a execução dos testes Web são gerados automaticamente screenshots para cada cenário executado.
 
 As evidências ficam armazenadas em:
 
@@ -145,45 +273,64 @@ As evidências ficam armazenadas em:
 cypress/evidencias/
 ```
 
-Estrutura das evidências:
+Estrutura:
 
 ```text
-evidencias
-├── login.feature
-├── search.feature
-├── add_to_cart.feature
-└── checkout.feature
+login.feature/
+search.feature/
+add_to_cart.feature/
+checkout.feature/
 ```
 
 ---
 
-# Boas práticas utilizadas
+# Boas práticas aplicadas
 
 - BDD com Cucumber
 - Page Object Model (POM)
 - Organização por Features
 - Step Definitions
-- Massa de dados em Fixtures
+- Fixtures para massa de dados
 - Reutilização de código
-- Evidências automatizadas
 - Separação entre testes Web e API
+- Evidências automáticas
+- Código modularizado
+- Fácil manutenção e escalabilidade
 
 ---
 
-# Resultado
+# Cobertura dos testes
 
-Foram automatizadas:
+O projeto contempla:
 
-- 5 Features
-- 10 Cenários
-- Testes Web
-- Teste de API
-- Cenários positivos e negativos
+- ✅ 5 Features
+- ✅ 10 Cenários automatizados
+- ✅ Cenários positivos
+- ✅ Cenários negativos
+- ✅ Automação Web
+- ✅ Automação de API REST
+- ✅ Geração automática de evidências
+- ✅ Arquitetura baseada em BDD + POM
 
-Todos os cenários foram executados com sucesso.
+Resultado da execução:
+
+- 10 cenários executados
+- 10 cenários aprovados
+- 0 falhas
 
 ---
 
 # Autor
 
-Projeto desenvolvido por **Jaqueline Fernandes de Andrade** como teste técnico de Automação de Testes utilizando Cypress, JavaScript e Cucumber.
+**Jaqueline Fernandes de Andrade**
+
+Analista de Qualidade de Software | QA Automation
+
+Tecnologias:
+
+- Cypress
+- JavaScript
+- Cucumber (BDD)
+- API Testing
+- Page Object Model (POM)
+- Testes Web

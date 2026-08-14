@@ -1,0 +1,20 @@
+{
+  "validUser": {
+    "email": "***REMOVIDO***",
+    "password": "***REMOVIDO***"
+  },
+  "invalidUser": {
+    "email": "usuario@***REMOVIDO***.com",
+    "password": "123456"
+
+  },
+ 
+  "payment": {
+    "nameOnCard": "***REMOVIDO***",
+    "cardNumber": "4111111111111111",
+    "cvc": "123",
+    "expiryMonth": "12",
+    "expiryYear": "2030"
+  }
+}
+  

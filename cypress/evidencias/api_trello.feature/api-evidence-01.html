@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>Evidência API GET Trello</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 32px;
+      line-height: 1.5;
+      background: #f5f5f5;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 8px;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #eeeeee;
+      padding: 16px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Evidência API GET Trello</h1>
+
+    <div class="field">
+      <strong>Método:</strong> GET
+    </div>
+
+    <div class="field">
+      <strong>URL:</strong> https://api.trello.com/1/actions/592f11060f95a3d3d46a987a
+    </div>
+
+    <div class="field">
+      <strong>Status:</strong> 200 OK
+    </div>
+
+    <div class="field">
+      <strong>Data/hora:</strong> 2026-07-15T13:09:55.262Z
+    </div>
+
+    <div class="field">
+      <strong>Regra validada:</strong>
+      Campo data.list.name retornado: Professional
+    </div>
+
+    <h2>Request body</h2>
+    <pre>{}</pre>
+
+    <h2>Response body</h2>
+    <pre>{
+  &quot;id&quot;: &quot;592f11060f95a3d3d46a987a&quot;,
+  &quot;idMemberCreator&quot;: &quot;5191197f9433cf5507006338&quot;,
+  &quot;data&quot;: {
+    &quot;list&quot;: {
+      &quot;name&quot;: &quot;Professional&quot;,
+      &quot;id&quot;: &quot;54a17e9db559f0356ce022e4&quot;
+    },
+    &quot;board&quot;: {
+      &quot;shortLink&quot;: &quot;BdarzfKF&quot;,
+      &quot;name&quot;: &quot;Life Goals&quot;,
+      &quot;id&quot;: &quot;54a17d76d4a5072e3931736b&quot;
+    },
+    &quot;card&quot;: {
+      &quot;shortLink&quot;: &quot;gplJv6dx&quot;,
+      &quot;idShort&quot;: 2,
+      &quot;name&quot;: &quot;Increase revenue by 10%&quot;,
+      &quot;id&quot;: &quot;54a1844d304d9736e54d2546&quot;,
+      &quot;due&quot;: &quot;2017-12-12T17:00:00.000Z&quot;
+    },
+    &quot;old&quot;: {
+      &quot;due&quot;: &quot;2017-05-01T16:00:00.000Z&quot;
+    }
+  },
+  &quot;agenticIdentity&quot;: null,
+  &quot;appCreator&quot;: null,
+  &quot;type&quot;: &quot;updateCard&quot;,
+  &quot;date&quot;: &quot;2017-05-31T18:52:54.933Z&quot;,
+  &quot;limits&quot;: null,
+  &quot;display&quot;: {
+    &quot;translationKey&quot;: &quot;action_changed_a_due_date&quot;,
+    &quot;entities&quot;: {
+      &quot;card&quot;: {
+        &quot;type&quot;: &quot;card&quot;,
+        &quot;id&quot;: &quot;54a1844d304d9736e54d2546&quot;,
+        &quot;due&quot;: &quot;2017-12-12T17:00:00.000Z&quot;,
+        &quot;shortLink&quot;: &quot;gplJv6dx&quot;,
+        &quot;text&quot;: &quot;Increase revenue by 10%&quot;
+      },
+      &quot;date&quot;: {
+        &quot;type&quot;: &quot;date&quot;,
+        &quot;date&quot;: &quot;2017-12-12T17:00:00.000Z&quot;
+      },
+      &quot;memberCreator&quot;: {
+        &quot;type&quot;: &quot;member&quot;,
+        &quot;id&quot;: &quot;5191197f9433cf5507006338&quot;,
+        &quot;username&quot;: &quot;brian&quot;,
+        &quot;text&quot;: &quot;briancervino&quot;
+      }
+    }
+  },
+  &quot;memberCreator&quot;: {
+    &quot;id&quot;: &quot;5191197f9433cf5507006338&quot;,
+    &quot;activityBlocked&quot;: true,
+    &quot;avatarHash&quot;: &quot;6b168a63879423664027836161984f49&quot;,
+    &quot;avatarUrl&quot;: &quot;https://trello-members.s3.amazonaws.com/5191197f9433cf5507006338/6b168a63879423664027836161984f49&quot;,
+    &quot;fullName&quot;: &quot;briancervino&quot;,
+    &quot;idMemberReferrer&quot;: null,
+    &quot;initials&quot;: &quot;B&quot;,
+    &quot;nonPublic&quot;: {},
+    &quot;nonPublicAvailable&quot;: true,
+    &quot;username&quot;: &quot;brian&quot;
+  }
+}</pre>
+  </main>
+</body>
+</html>

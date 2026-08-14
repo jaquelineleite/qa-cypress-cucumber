@@ -1,0 +1,20 @@
+{
+  "validUser": {
+    "email": "teste2024@teste.com.br",
+    "password": "teste"
+  },
+  "invalidUser": {
+    "email": "usuario@teste.com",
+    "password": "123456"
+
+  },
+ 
+  "payment": {
+    "nameOnCard": "Jaqueline Andrade",
+    "cardNumber": "4111111111111111",
+    "cvc": "123",
+    "expiryMonth": "12",
+    "expiryYear": "2030"
+  }
+}
+  

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>{{TITLE}}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 32px;
+      line-height: 1.5;
+      background: #f5f5f5;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 8px;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #eeeeee;
+      padding: 16px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>{{TITLE}}</h1>
+
+    <div class="field">
+      <strong>Método:</strong> {{METHOD}}
+    </div>
+
+    <div class="field">
+      <strong>URL:</strong> {{URL}}
+    </div>
+
+    <div class="field">
+      <strong>Status:</strong> {{STATUS}}
+    </div>
+
+    <div class="field">
+      <strong>Data/hora:</strong> {{DATE_TIME}}
+    </div>
+
+    <div class="field">
+      <strong>Regra validada:</strong>
+      {{BUSINESS_RULE}}
+    </div>
+
+    <h2>Request body</h2>
+    <pre>{{REQUEST_BODY}}</pre>
+
+    <h2>Response body</h2>
+    <pre>{{RESPONSE_BODY}}</pre>
+  </main>
+</body>
+</html>

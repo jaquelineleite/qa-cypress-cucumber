@@ -1,6 +1,6 @@
 # Framework de Automação de Testes - Cypress + Cucumber
 [![Cypress Tests](https://github.com/jaquelineleite/qa-cypress-cucumber/actions/workflows/cypress-tests.yml/badge.svg)](https://github.com/jaquelineleite/qa-cypress-cucumber/actions/workflows/cypress-tests.yml)
-
+[![GitLab Pipeline](https://gitlab.com/jaquelinefdeandrade/qa-cypress-cucumber/badges/main/pipeline.svg)](https://gitlab.com/jaquelinefdeandrade/qa-cypress-cucumber/-/pipelines)
 
 ## Descrição
 

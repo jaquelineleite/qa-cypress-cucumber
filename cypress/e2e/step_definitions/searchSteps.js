@@ -6,19 +6,29 @@ Given("que acesso a tela de produtos", () => {
 });
 
 When("busco por um produto existente", () => {
-  ProductsPage.buscarProduto("Dress");
+  cy.fixture("users").then((dados) => {
+    ProductsPage.buscarProduto(dados.search.existingProduct);
+  });
 });
 
 When("busco por um produto inexistente", () => {
-  ProductsPage.buscarProduto("ProdutoInexistente123456");
+  cy.fixture("users").then((dados) => {
+    ProductsPage.buscarProduto(dados.search.nonExistingProduct);
+  });
 });
 
 Then("devo visualizar produtos retornados", () => {
-  ProductsPage.validarProdutosRetornados();
-cy.screenshot("busca-produto-existente");
+  cy.fixture("users").then((dados) => {
+    ProductsPage.validarProdutosRetornados();
+    ProductsPage.validarProdutoCorrespondenteAoTermo(
+      dados.search.existingProduct
+    );
+
+    cy.screenshot("busca-produto-existente");
+  });
 });
 
 Then("não devo visualizar produtos retornados", () => {
   ProductsPage.validarSemProdutos();
-  cy.screenshot("busca-produto-inexistente");;
+  cy.screenshot("busca-produto-inexistente");
 });

@@ -5,6 +5,14 @@ const outputDir = path.resolve(
   "cypress/evidencias/api_trello.feature"
 );
 
+const fixturePath = path.resolve(
+  "cypress/fixtures/users.json"
+);
+
+const users = JSON.parse(
+  fs.readFileSync(fixturePath, "utf8")
+);
+
 const templateGetPath = path.resolve(
   "scripts/templates/api-evidence-01.html"
 );
@@ -86,32 +94,17 @@ async function executarPostAutomationExercise() {
   const url =
     "https://automationexercise.com/api/createAccount";
 
-  const body = new URLSearchParams({
-    name: "Jaqueline Teste",
-    password: "123456",
-    title: "Mrs",
-    birth_date: "09",
-    birth_month: "07",
-    birth_year: "1987",
-    firstname: "Jaqueline",
-    lastname: "Andrade",
-    company: "HCXpert",
-    address1: "Rua Teste",
-    country: "India",
-    zipcode: "12345",
-    state: "SP",
-    city: "Sao Paulo",
-    mobile_number: "11999999999",
-  });
+  const body = new URLSearchParams(
+    users.apiCreateAccountWithoutEmail
+  );
 
   const response = await fetch(url, {
     method: "POST",
     headers: {
-      "Content-Type":
-        "application/x-www-form-urlencoded",
-      Accept: "application/json",
-    },
-    body,
+    "Content-Type": "application/x-www-form-urlencoded",
+    Accept: "application/json",
+  },
+  body,
   });
 
   const rawBody = await response.text();

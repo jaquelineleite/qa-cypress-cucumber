@@ -6,15 +6,37 @@
   "invalidUser": {
     "email": "usuario@teste.com",
     "password": "123456"
-
   },
- 
   "payment": {
     "nameOnCard": "Jaqueline Andrade",
     "cardNumber": "4111111111111111",
     "cvc": "123",
     "expiryMonth": "12",
     "expiryYear": "2030"
+  },
+  "search": {
+    "existingProduct": "Dress",
+    "nonExistingProduct": "ProdutoInexistente123456"
+  },
+  "checkout": {
+    "orderComment": "Pedido automatizado para validação do checkout."
+  },
+  "apiCreateAccountWithoutEmail": {
+    "name": "QA Test User",
+    "password": "123456",
+    "title": "Mrs",
+    "birth_date": "09",
+    "birth_month": "07",
+    "birth_year": "1987",
+    "firstname": "QA",
+    "lastname": "Tester",
+    "company": "HCXpert",
+    "address1": "Rua Teste",
+    "country": "India",
+    "zipcode": "12345",
+    "state": "SP",
+    "city": "Sao Paulo",
+    "mobile_number": "11999999999"
   }
 }
   

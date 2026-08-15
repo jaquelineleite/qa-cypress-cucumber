@@ -10,6 +10,7 @@ const {
 } = require("@badeball/cypress-cucumber-preprocessor/esbuild");
 
 module.exports = defineConfig({
+    trashAssetsBeforeRuns: false,
   e2e: {
     baseUrl: "https://www.automationexercise.com",
     specPattern: "cypress/e2e/features/*.feature",

@@ -215,84 +215,87 @@ npx cypress run --spec "cypress/e2e/features/api_trello.feature"
 ## Login
 
 ### Positivo
-
 - Realizar login com credenciais válidas.
+- Validar que o usuário autenticado é apresentado na aplicação.
 
 ### Negativo
-
-- Impedir login utilizando credenciais inválidas.
+- Realizar tentativa de login com credenciais inválidas.
+- Validar a apresentação da mensagem de erro de autenticação.
 
 ---
 
 ## Busca
 
 ### Positivo
-
-- Pesquisar produto existente.
+- Pesquisar por um produto existente.
+- Validar a existência de resultados.
+- Validar que o produto retornado corresponde ao termo pesquisado.
 
 ### Negativo
-
-- Pesquisar produto inexistente.
+- Pesquisar por um produto inexistente.
+- Validar que nenhum produto é retornado.
 
 ---
 
 ## Carrinho
 
 ### Positivo
-
-- Adicionar produto ao carrinho.
+- Adicionar o primeiro produto disponível ao carrinho.
+- Validar a persistência do nome e preço.
+- Validar a quantidade igual a 1.
+- Validar o total do produto no carrinho.
 
 ### Negativo
-
-- Validar carrinho vazio.
+- Acessar o carrinho sem produtos.
+- Validar a mensagem de carrinho vazio.
+- Validar que não existem produtos e que o checkout não é apresentado.
 
 ---
 
 ## Checkout
 
 ### Positivo
-
-- Validar que o produto adicionado ao carrinho é apresentado corretamente na tela de pagamento.
+- Realizar o fluxo completo de checkout com usuário autenticado.
+- Validar os dados do produto no resumo do pedido.
+- Preencher os dados obrigatórios de pagamento.
+- Confirmar o pedido com sucesso.
 
 ### Negativo
-
-- Impedir checkout quando o carrinho estiver vazio.
+- Tentar confirmar o pagamento sem preencher os campos obrigatórios.
+- Validar que o pedido não é finalizado.
+- Validar a permanência na tela de pagamento.
+- Validar os campos obrigatórios do formulário.
 
 ---
 
 ## API
 
-### Positivo
+### GET Trello - Fluxo positivo
+- Status Code 200.
+- Validação da estrutura `data.list.name`.
+- Validação de que `list.name` é uma string não vazia.
+- Exibição do valor retornado no log.
 
-Realizar requisição GET para
+### GET Trello - Fluxo negativo
+- Requisição utilizando uma ação inexistente.
+- Validação do Status Code 400.
 
-```
-https://api.trello.com/1/actions/592f11060f95a3d3d46a987a
-```
-
-Validando:
-
-- Status Code 200
-- Campo list.name
-
-### Negativo
-
-Validar retorno utilizando URL inválida.
-
----
-
-# Aplicação utilizada
-
-https://www.automationexercise.com
+### POST Automation Exercise
+- POST para `/api/createAccount`.
+- Requisição propositalmente sem o parâmetro `email`.
+- Validação do Status HTTP 200.
+- Validação do `responseCode` 400.
+- Validação da mensagem referente ao parâmetro `email` ausente.
 
 ---
 
-# API utilizada
+# Aplicação e APIs utilizadas
 
-https://api.trello.com/1/actions/592f11060f95a3d3d46a987a
+- Web: `https://www.automationexercise.com`
+- Trello: `https://api.trello.com/1/actions/592f11060f95a3d3d46a987a`
+- Automation Exercise API: `https://automationexercise.com/api/createAccount`
 
 ---
-
 # Relatórios e Evidências
 
 ## Relatório HTML
@@ -425,6 +428,53 @@ Resultado da última execução
 
 ---
 
+# Matriz Final de Entregas
+
+A tabela abaixo apresenta o status dos requisitos definidos no desafio técnico.
+
+| Requisito | Status | Evidência / Observação |
+|---|---|---|
+| Cypress em versão recente | ✅ Atendido | Cypress 15.17.0 |
+| JavaScript | ✅ Atendido | Automação implementada em JavaScript |
+| Cucumber / Gherkin | ✅ Atendido | 5 arquivos `.feature` utilizando BDD declarativo |
+| Page Object Model | ✅ Atendido | Page Objects centralizam seletores, ações e validações |
+| Estrutura de diretórios solicitada | ✅ Atendido | Features, Step Definitions, Page Objects, Fixtures, Scripts e Templates organizados |
+| Login positivo e negativo | ✅ Atendido | Credenciais válidas e inválidas |
+| Busca positiva e negativa | ✅ Atendido | Produto existente e inexistente |
+| Adição de produto ao carrinho | ✅ Atendido | Fluxo automatizado a partir da listagem |
+| Persistência de nome no carrinho | ✅ Atendido | Comparação entre produto selecionado e carrinho |
+| Persistência de preço no carrinho | ✅ Atendido | Comparação entre listagem e carrinho |
+| Validação de quantidade | ✅ Atendido | Quantidade esperada igual a 1 |
+| Checkout completo | ✅ Atendido | Fluxo até confirmação do pedido |
+| Campos obrigatórios do pagamento | ✅ Atendido | Finalização bloqueada com campos vazios |
+| GET Trello | ✅ Atendido | Endpoint obrigatório implementado |
+| Status Code do GET Trello | ✅ Atendido | Validação rígida de HTTP 200 |
+| Campo `data.list.name` | ✅ Atendido | Existência, tipo, conteúdo e log validados |
+| GET Trello negativo | ✅ Atendido | Ação inexistente com HTTP 400 |
+| POST `/api/createAccount` | ✅ Atendido | Automation Exercise API |
+| Regra de parâmetro obrigatório | ✅ Atendido | `email` omitido propositalmente |
+| Validação de regra no JSON | ✅ Atendido | `responseCode` 400 e mensagem referente ao `email` |
+| Massa de dados em Fixture | ✅ Atendido | Dados centralizados em `cypress/fixtures/users.json` |
+| Custom Commands | ✅ Atendido | Command reutilizável `cy.login()` integrado ao Page Object |
+| Evidências Web | ✅ Atendido | Screenshots organizados por Feature |
+| Templates de evidência API | ✅ Atendido | `api-evidence-01.html` e `api-evidence-02.html` |
+| Geração automática de evidências API | ✅ Atendido | `npm run api:evidence` executado com sucesso |
+| Relatório Cucumber JSON | ✅ Atendido | Gerado durante a execução |
+| Relatório Cucumber HTML | ✅ Atendido | `npm run report` executado com sucesso |
+| Execução completa sem falhas | ✅ Atendido | 11 testes executados, 11 aprovados e 0 falhas |
+| Execução em ambiente Linux | ✅ Atendido | Suíte validada em GitHub Codespaces |
+| Script de integração Jira Xray | ⚠️ Parcialmente atendido | Implementação concluída; upload real depende de credenciais Xray |
+| Captura da janela do Chrome via PowerShell | ⚠️ Parcialmente atendido | Script preparado para Windows; versão atual não executada no Codespaces Linux |
+
+## Resultado geral
+
+- ✅ Requisitos principais de automação Web atendidos.
+- ✅ Requisitos principais de automação API atendidos.
+- ✅ BDD, POM, Fixtures e reutilização implementados.
+- ✅ Relatórios e evidências automatizados.
+- ✅ Execução completa: **11 cenários aprovados e 0 falhas**.
+- ⚠️ Integração real com Xray depende de credenciais externas.
+- ⚠️ O script PowerShell de captura do Chrome deve ser executado em ambiente Windows.
 # Parecer sobre a testabilidade da aplicação
 
 Durante o processo de automação foram observados alguns aspectos que impactam diretamente a testabilidade da aplicação:

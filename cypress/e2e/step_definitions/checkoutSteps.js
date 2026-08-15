@@ -44,10 +44,12 @@ Then("devo visualizar os dados do produto no resumo do pedido", () => {
 });
 
 When("adiciono uma observação ao pedido", () => {
-  CartPage.preencherComentario(
-    "Pedido automatizado para validação do checkout."
-  );
-});
+  cy.fixture("users").then((dados) => {
+    CartPage.preencherComentario(
+      dados.checkout.orderComment
+    );
+  });
+  });
 
 When("avanço para o pagamento", () => {
   CartPage.clicarPlaceOrder();

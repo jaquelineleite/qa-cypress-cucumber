@@ -16,6 +16,7 @@ Given("que envio uma requisição GET válida para API Trello", () => {
     const nomeLista = res.body?.data?.list?.name;
 
     cy.log(`Nome da lista: ${nomeLista}`);
+
     Cypress.log({
       name: "Trello list.name",
       message: nomeLista,
@@ -29,6 +30,7 @@ Then("devo validar status code 200", () => {
 
 Then("devo exibir o campo name da estrutura list", () => {
   expect(response.body).to.have.nested.property("data.list.name");
+
   expect(response.body.data.list.name)
     .to.be.a("string")
     .and.not.be.empty;
@@ -47,36 +49,22 @@ Given("que envio uma requisição GET inválida para API Trello", () => {
 });
 
 Then("devo validar status code de erro", () => {
-  expect(response.status).to.be.oneOf([400, 404]);
+ expect(response.status).to.eq(400);
 });
 
 Given("que envio uma requisição POST sem o parâmetro email", () => {
-  cy.request({
-    method: "POST",
-    url: "https://automationexercise.com/api/createAccount",
-    form: true,
-    failOnStatusCode: false,
-    body: {
-      name: "Jaqueline Teste",
-      password: "123456",
-      title: "Mrs",
-      birth_date: "09",
-      birth_month: "07",
-      birth_year: "1987",
-      firstname: "Jaqueline",
-      lastname: "Andrade",
-      company: "HCXpert",
-      address1: "Rua Teste",
-      country: "India",
-      zipcode: "12345",
-      state: "SP",
-      city: "Sao Paulo",
-      mobile_number: "11999999999",
-    },
-  }).then((res) => {
-    response = res;
+  cy.fixture("users").then((users) => {
+    cy.request({
+      method: "POST",
+      url: "https://automationexercise.com/api/createAccount",
+      form: true,
+      failOnStatusCode: false,
+      body: users.apiCreateAccountWithoutEmail,
+    }).then((res) => {
+      response = res;
 
-    cy.log(`Resposta createAccount: ${JSON.stringify(res.body)}`);
+      cy.log(`Resposta createAccount: ${JSON.stringify(res.body)}`);
+    });
   });
 });
 

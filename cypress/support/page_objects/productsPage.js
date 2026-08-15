@@ -3,6 +3,8 @@ class ProductsPage {
     campoBusca: "#search_product",
     botaoBuscar: "#submit_search",
     listaProdutos: ".product-image-wrapper",
+    nomeProduto: ".productinfo p",
+    precoProduto: ".productinfo h2",
     botaoAdicionarCarrinho: ".add-to-cart",
     modalProdutoAdicionado: "#cartModal",
     botaoVerCarrinho: "a[href='/view_cart']",
@@ -60,6 +62,22 @@ class ProductsPage {
   }
 
   adicionarPrimeiroProdutoAoCarrinho() {
+    cy.get(this.elementos.listaProdutos)
+      .first()
+      .find(this.elementos.nomeProduto)
+      .invoke("text")
+      .then((nome) => {
+        cy.wrap(nome.trim()).as("nomeProdutoSelecionado");
+      });
+
+    cy.get(this.elementos.listaProdutos)
+      .first()
+      .find(this.elementos.precoProduto)
+      .invoke("text")
+      .then((preco) => {
+        cy.wrap(preco.trim()).as("precoProdutoSelecionado");
+      });
+
     cy.get(this.elementos.listaProdutos)
       .first()
       .scrollIntoView()

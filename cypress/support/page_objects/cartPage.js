@@ -78,39 +78,43 @@ class CartPage {
   }
 
   validarProdutoNoCarrinho() {
-    cy.get(this.elementos.linhaProduto)
-      .should("have.length.at.least", 1)
-      .first()
-      .should("be.visible");
+  cy.get(this.elementos.linhaProduto)
+    .should("have.length.at.least", 1)
+    .first()
+    .should("be.visible");
 
+  cy.get("@nomeProdutoSelecionado").then((nomeEsperado) => {
     cy.get(this.elementos.nomeProduto)
       .first()
       .invoke("text")
-      .then((nome) => {
-        expect(nome.trim()).not.to.be.empty;
+      .then((nomeCarrinho) => {
+        expect(nomeCarrinho.trim()).to.eq(nomeEsperado);
       });
+  });
 
+  cy.get("@precoProdutoSelecionado").then((precoEsperado) => {
     cy.get(this.elementos.precoProduto)
       .first()
       .invoke("text")
-      .then((preco) => {
-        expect(preco.trim()).to.match(/\d/);
-      });
-
-    cy.get(this.elementos.quantidadeProduto)
-      .first()
-      .invoke("text")
-      .then((quantidade) => {
-        expect(quantidade.trim()).to.equal("1");
+      .then((precoCarrinho) => {
+        expect(precoCarrinho.trim()).to.eq(precoEsperado);
       });
 
     cy.get(this.elementos.totalProduto)
       .first()
       .invoke("text")
-      .then((total) => {
-        expect(total.trim()).to.match(/\d/);
+      .then((totalCarrinho) => {
+        expect(totalCarrinho.trim()).to.eq(precoEsperado);
       });
-  }
+  });
+
+  cy.get(this.elementos.quantidadeProduto)
+    .first()
+    .invoke("text")
+    .then((quantidade) => {
+      expect(quantidade.trim()).to.eq("1");
+    });
+}
 
   clicarCheckout() {
     cy.get(this.elementos.botaoCheckout)

@@ -30,25 +30,27 @@ class CartPage {
 
     const removerProduto = () => {
       cy.get("body").then(($body) => {
-        const botoes = $body.find(this.elementos.botaoRemoverProduto);
+        const botao = $body.find(this.elementos.botaoRemoverProduto).first();
 
-        if (botoes.length === 0) {
+        if (!botao.length) {
+          cy.get(this.elementos.linhaProduto).should("not.exist");
           return;
         }
 
-        cy.wrap(botoes[0])
-          .click()
-          .then(() => {
-            cy.get("body").should(($pagina) => {
-              const quantidadeAtual = $pagina.find(
-                this.elementos.botaoRemoverProduto
-              ).length;
+        const linha = botao.closest("tr");
+        const idLinha = linha.attr("id");
 
-              expect(quantidadeAtual).to.be.lessThan(botoes.length);
-            });
+        if (!idLinha) {
+          throw new Error("Produto do carrinho sem identificador de linha.");
+        }
 
-            removerProduto();
-          });
+        cy.get(`[id="${idLinha}"]`)
+          .find(this.elementos.botaoRemoverProduto)
+          .click();
+
+        cy.get(`[id="${idLinha}"]`).should("not.exist");
+
+        removerProduto();
       });
     };
 

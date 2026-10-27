@@ -1,14 +1,11 @@
 {
-  "validUser": {
-    "email": "***REMOVIDO***",
-    "password": "***REMOVIDO***"
-  },
+  "validUser": {},
   "invalidUser": {
-    "email": "usuario@***REMOVIDO***.com",
-    "password": "123456"
+    "email": "qa-inexistente-dae2e224-7350-4834-82e9-d63c70cb85ef@example.com",
+    "password": "SenhaInvalida-dae2e224-7350-4834-82e9-d63c70cb85ef"
   },
   "payment": {
-    "nameOnCard": "***REMOVIDO***",
+    "nameOnCard": "Cliente Teste",
     "cardNumber": "4111111111111111",
     "cvc": "123",
     "expiryMonth": "12",
@@ -39,4 +36,3 @@
     "mobile_number": "11999999999"
   }
 }
-  

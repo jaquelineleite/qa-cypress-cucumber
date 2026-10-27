@@ -3,3 +3,9 @@ cypress/screenshots/
 cypress/videos/
 .env
 cypress/reports/
+
+# Evidencias locais de testes
+cypress/evidencias/
+
+# Relatorio local de auditoria
+audit-report.json

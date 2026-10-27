@@ -4,9 +4,9 @@
 
 ## Descrição
 
-Projeto desenvolvido como ***REMOVIDO*** técnico para automação de ***REMOVIDO***s **Web** e **API**, utilizando **Cypress**, **JavaScript** e **Cucumber (BDD)**, seguindo o padrão **Page Object Model (POM)**.
+Projeto desenvolvido como teste técnico para automação de testes **Web** e **API**, utilizando **Cypress**, **JavaScript** e **Cucumber (BDD)**, seguindo o padrão **Page Object Model (POM)**.
 
-O objetivo deste projeto é demonstrar boas práticas de automação de ***REMOVIDO***s, organização do framework, reutilização de código, geração de evidências e validação de funcionalidades Web e API.
+O objetivo deste projeto é demonstrar boas práticas de automação de testes, organização do framework, reutilização de código, geração de evidências e validação de funcionalidades Web e API.
 
 O projeto contempla os cenários positivos e negativos propostos no desafio técnico, geração de relatórios HTML, evidências de API e estrutura preparada para integração com Jira Xray.
 
@@ -131,7 +131,7 @@ Os cenários foram escritos utilizando Gherkin através das palavras-chave:
 - Then
 - And
 
-Essa abordagem aproxima os ***REMOVIDO***s da linguagem de negócio e facilita a comunicação entre QA, Desenvolvimento e Produto.
+Essa abordagem aproxima os testes da linguagem de negócio e facilita a comunicação entre QA, Desenvolvimento e Produto.
 
 ---
 
@@ -161,14 +161,14 @@ cd qa-cypress-cucumber
 Instale as dependências
 
 ```bash
-npm install
+npm ci
 ```
 
 ---
 
-# Execução dos ***REMOVIDO***s
+# Execução dos testes
 
-## Executar todos os ***REMOVIDO***s
+## Executar todos os testes
 
 ```bash
 npm run cy:run
@@ -318,7 +318,7 @@ cypress/reports/html/index.html
 
 ## Relatório JSON
 
-Gerado automaticamente durante a execução dos ***REMOVIDO***s
+Gerado automaticamente durante a execução dos testes
 
 ```text
 cypress/reports/json/cucumber-report.json
@@ -362,7 +362,7 @@ cypress/evidencias/captura-chrome.png
 
 # Scripts disponíveis
 
-Executar todos os ***REMOVIDO***s
+Executar todos os testes
 
 ```bash
 npm run cy:run
@@ -406,7 +406,7 @@ powershell -ExecutionPolicy Bypass -File scripts/capture-chrome-window.ps1
 
 ---
 
-# Cobertura dos ***REMOVIDO***s
+# Cobertura dos testes
 
 O projeto contempla:
 
@@ -424,8 +424,8 @@ O projeto contempla:
 
 Resultado da última execução
 
-- 11 ***REMOVIDO***s executados
-- 11 ***REMOVIDO***s aprovados
+- 11 testes executados
+- 11 testes aprovados
 - 0 falhas
 
 ---
@@ -463,7 +463,7 @@ A tabela abaixo apresenta o status dos requisitos definidos no desafio técnico.
 | Geração automática de evidências API | ✅ Atendido | `npm run api:evidence` executado com sucesso |
 | Relatório Cucumber JSON | ✅ Atendido | Gerado durante a execução |
 | Relatório Cucumber HTML | ✅ Atendido | `npm run report` executado com sucesso |
-| Execução completa sem falhas | ✅ Atendido | 11 ***REMOVIDO***s executados, 11 aprovados e 0 falhas |
+| Execução completa sem falhas | ✅ Atendido | 11 testes executados, 11 aprovados e 0 falhas |
 | Execução em ambiente Linux | ✅ Atendido | Suíte validada em GitHub Codespaces |
 | Script de integração Jira Xray | ⚠️ Parcialmente atendido | Implementação concluída; upload real depende de credenciais Xray |
 | Captura da janela do Chrome via PowerShell | ⚠️ Parcialmente atendido | Script preparado para Windows; versão atual não executada no Codespaces Linux |
@@ -519,3 +519,19 @@ Tecnologias
 - Page Object Model
 - Testes Web
 - Testes de API
+
+---
+
+## Configuração do ambiente e segurança
+
+Crie um arquivo `.env` na raiz do projeto, utilizando `.env.example` como referência. Configure `QA_LOGIN_EMAIL` e `QA_LOGIN_PASSWORD` com credenciais de uma conta exclusiva para testes no Automation Exercise.
+
+O arquivo `.env` não deve ser versionado. No GitHub Actions, cadastre essas variáveis em Settings > Secrets and variables > Actions, como Repository secrets.
+
+As credenciais anteriormente expostas devem ser substituídas antes da publicação.
+
+## Relatórios e evidências
+
+Os testes geram relatórios JSON e HTML, além de capturas de tela. Esses arquivos não são versionados no Git. Na pipeline, os artefatos ficam disponíveis por até 14 dias e devem ser revisados para evitar exposição de dados sensíveis.
+
+A última execução local validada apresentou 11 testes aprovados e nenhuma falha. A execução no GitHub Actions ainda precisa ser validada.

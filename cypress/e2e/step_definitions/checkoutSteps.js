@@ -8,14 +8,10 @@ import CartPage from "../../support/page_objects/cartPage";
 import ProductsPage from "../../support/page_objects/productsPage";
 
 Given("que estou logado no sistema", () => {
-  cy.fixture("users").then((dados) => {
-    cy.login(
-      dados.validUser.email,
-      dados.validUser.password
-    );
+  cy.env(["QA_LOGIN_EMAIL", "QA_LOGIN_PASSWORD"]).then(({ QA_LOGIN_EMAIL, QA_LOGIN_PASSWORD }) => {
+    cy.login(QA_LOGIN_EMAIL, QA_LOGIN_PASSWORD);
+    cy.contains("Logged in as").should("be.visible");
   });
-
-  cy.contains("Logged in as").should("be.visible");
 });
 
 Given("que possuo um produto no carrinho", () => {

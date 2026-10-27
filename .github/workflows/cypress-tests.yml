@@ -4,9 +4,8 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+      - consolidacao-qa-automation
+  workflow_dispatch:
 
 jobs:
   cypress-tests:
@@ -24,3 +23,20 @@ jobs:
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v7
+        env:
+          QA_LOGIN_EMAIL: ${{ secrets.QA_LOGIN_EMAIL }}
+          QA_LOGIN_PASSWORD: ${{ secrets.QA_LOGIN_PASSWORD }}
+
+      - name: Generate HTML report
+        if: always()
+        run: npm run report
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-test-reports
+          path: |
+            cypress/reports/
+          if-no-files-found: warn
+          retention-days: 14

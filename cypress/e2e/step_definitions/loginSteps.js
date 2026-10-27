@@ -6,13 +6,12 @@ Given("que acesso a tela de login", () => {
 });
 
 When("informo credenciais válidas", () => {
-  cy.fixture("users").then((dados) => {
-    LoginPage.preencherEmail(dados.validUser.email);
-    LoginPage.preencherSenha(dados.validUser.password);
+  cy.env(["QA_LOGIN_EMAIL", "QA_LOGIN_PASSWORD"]).then(({ QA_LOGIN_EMAIL, QA_LOGIN_PASSWORD }) => {
+    LoginPage.preencherEmail(QA_LOGIN_EMAIL);
+    LoginPage.preencherSenha(QA_LOGIN_PASSWORD);
     LoginPage.clicarEntrar();
   });
 });
-
 When("informo credenciais inválidas", () => {
   cy.fixture("users").then((dados) => {
     LoginPage.preencherEmail(dados.invalidUser.email);

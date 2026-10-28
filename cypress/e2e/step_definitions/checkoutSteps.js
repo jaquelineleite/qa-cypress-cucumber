@@ -23,6 +23,7 @@ Given("que possuo um produto no carrinho", () => {
 
   CartPage.validarCarrinhoVisivel();
   CartPage.validarProdutoNoCarrinho();
+  CartPage.salvarDadosDoProduto();
 
 });
 
@@ -34,7 +35,6 @@ When("acesso o checkout", () => {
 
 Then("devo visualizar os dados do produto no resumo do pedido", () => {
   CartPage.validarResumoDoPedido();
-  CartPage.salvarDadosDoProduto();
 
   cy.screenshot("checkout-produto-resumo-pedido");
 });

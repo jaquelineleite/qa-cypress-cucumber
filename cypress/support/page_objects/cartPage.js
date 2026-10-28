@@ -135,24 +135,30 @@ class CartPage {
   }
 
   validarResumoDoPedido() {
-    cy.get(this.elementos.resumoPedido)
-      .should("be.visible");
+    cy.get(this.elementos.resumoPedido).should("be.visible");
 
-    cy.get(this.elementos.nomeProduto)
-      .first()
-      .should("be.visible");
+    const campos = [
+      ["nomeProduto", this.elementos.nomeProduto, "Nome do produto"],
+      ["precoProduto", this.elementos.precoProduto, "Preco do produto"],
+      ["quantidadeProduto", this.elementos.quantidadeProduto, "Quantidade"],
+      ["totalProduto", this.elementos.totalProduto, "Total do pedido"],
+    ];
 
-    cy.get(this.elementos.precoProduto)
-      .first()
-      .should("be.visible");
-
-    cy.get(this.elementos.quantidadeProduto)
-      .first()
-      .should("be.visible");
-
-    cy.get(this.elementos.totalProduto)
-      .first()
-      .should("be.visible");
+    campos.forEach(([alias, seletor, descricao]) => {
+      cy.get(`@${alias}`).then((valorEsperado) => {
+        cy.get(this.elementos.resumoPedido)
+          .find(seletor)
+          .first()
+          .should("be.visible")
+          .invoke("text")
+          .then((valorAtual) => {
+            expect(
+              valorAtual.trim(),
+              `${descricao}: carrinho versus checkout`
+            ).to.eq(valorEsperado);
+          });
+      });
+    });
   }
 
   salvarDadosDoProduto() {

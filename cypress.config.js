@@ -15,7 +15,10 @@ module.exports = defineConfig({
   trashAssetsBeforeRuns: true,
   e2e: {
     baseUrl: "https://www.automationexercise.com",
-    specPattern: "cypress/e2e/features/*.feature",
+    specPattern: [
+      "cypress/e2e/features/*.feature",
+      "cypress/e2e/diagnostico/*.cy.js",
+    ],
     supportFile: "cypress/support/e2e.js",
     screenshotsFolder: "cypress/evidencias",
 

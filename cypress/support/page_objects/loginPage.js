@@ -1,7 +1,18 @@
 class LoginPage {
+  validarDisponibilidadeAmbiente(contexto) {
+    cy.get("body").then(($body) => {
+      if ($body.text().includes("This website is under heavy load")) {
+        throw new Error(
+          `[AMBIENTE INDISPONÍVEL] Aplicação possivelmente sobrecarregada: ${contexto}.`
+        );
+      }
+    });
+  }
 
   acessarPaginaLogin() {
     cy.visit("/login");
+
+    this.validarDisponibilidadeAmbiente("ao acessar o login");
   }
 
   preencherEmail(email) {
@@ -17,6 +28,8 @@ class LoginPage {
   }
 
   validarLoginComSucesso() {
+    this.validarDisponibilidadeAmbiente("durante a autenticação");
+
     cy.contains("Logged in as").should("be.visible");
   }
 

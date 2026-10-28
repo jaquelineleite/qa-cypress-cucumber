@@ -3,6 +3,29 @@ import {
   Then,
 } from "@badeball/cypress-cucumber-preprocessor";
 
+const URL_CADASTRO = "https://automationexercise.com/api/createAccount";
+
+function enviarCadastroSemCampo(campo) {
+  cy.fixture("users").then((users) => {
+    const payload = {
+      ...users.apiCreateAccountWithoutEmail,
+      email: "qa-teste-invalido@example.com",
+    };
+
+    delete payload[campo];
+
+    cy.request({
+      method: "POST",
+      url: URL_CADASTRO,
+      form: true,
+      failOnStatusCode: false,
+      body: payload,
+    }).then((res) => {
+      cy.wrap(res).as("apiResponse");
+    });
+  });
+}
+
 Given("que envio uma requisição GET válida para API Trello", () => {
   cy.request({
     method: "GET",
@@ -93,5 +116,41 @@ Then("devo validar a mensagem de parâmetro obrigatório ausente", () => {
     expect(corpo).to.have.property("message");
     expect(corpo.message.toLowerCase()).to.include("email");
     expect(corpo.message.toLowerCase()).to.include("missing");
+  });
+});
+
+Given("que envio uma requisição POST sem o parâmetro password", () => {
+  enviarCadastroSemCampo("password");
+});
+
+Then("devo validar o erro de parâmetro password obrigatório", () => {
+  cy.get("@apiResponse").then((response) => {
+    const corpo =
+      typeof response.body === "string"
+        ? JSON.parse(response.body)
+        : response.body;
+
+    expect(corpo.responseCode).to.eq(400);
+    expect(corpo.message).to.eq(
+      "Bad request, password parameter is missing in POST request."
+    );
+  });
+});
+
+Given("que envio uma requisição POST sem o parâmetro name", () => {
+  enviarCadastroSemCampo("name");
+});
+
+Then("devo validar o erro de parâmetro name obrigatório", () => {
+  cy.get("@apiResponse").then((response) => {
+    const corpo =
+      typeof response.body === "string"
+        ? JSON.parse(response.body)
+        : response.body;
+
+    expect(corpo.responseCode).to.eq(400);
+    expect(corpo.message).to.eq(
+      "Bad request, name parameter is missing in POST request."
+    );
   });
 });

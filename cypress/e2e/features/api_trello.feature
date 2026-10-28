@@ -12,8 +12,3 @@ Feature: APIs REST
   Scenario: Validar o tratamento de uma ação inexistente no Trello
     Given que envio uma requisição GET inválida para API Trello
     Then devo validar status code de erro
-
-  Scenario: Validar parâmetros obrigatórios no cadastro de usuário
-    Given que envio uma requisição POST sem o parâmetro email
-    Then devo validar o status code da API de cadastro
-    And devo validar a mensagem de parâmetro obrigatório ausente

@@ -87,7 +87,7 @@ class ProductsPage {
       .first()
       .find(this.elementos.botaoAdicionarCarrinho)
       .first()
-      .click({ force: true });
+      .click();
 
     cy.get(this.elementos.modalProdutoAdicionado)
       .should("be.visible");

@@ -218,11 +218,11 @@ class CartPage {
 
     cy.get(this.elementos.numeroCartao)
       .clear()
-      .type(numeroCartao);
+      .type(numeroCartao, { log: false });
 
     cy.get(this.elementos.cvc)
       .clear()
-      .type(cvc);
+      .type(cvc, { log: false });
 
     cy.get(this.elementos.mesExpiracao)
       .clear()

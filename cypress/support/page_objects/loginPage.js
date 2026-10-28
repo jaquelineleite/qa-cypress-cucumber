@@ -9,7 +9,7 @@ class LoginPage {
   }
 
   preencherSenha(senha) {
-    cy.get('[data-qa="login-password"]').clear().type(senha);
+    cy.get('[data-qa="login-password"]').clear().type(senha, { log: false });
   }
 
   clicarEntrar() {

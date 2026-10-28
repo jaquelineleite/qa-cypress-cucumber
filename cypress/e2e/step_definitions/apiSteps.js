@@ -1,3 +1,4 @@
+import { interpretarRespostaJson } from "../../support/diagnostics/apiResponseDiagnostics";
 import {
   Given,
   Then,
@@ -105,10 +106,10 @@ Then("devo validar o status code da API de cadastro", () => {
 
 Then("devo validar a mensagem de parâmetro obrigatório ausente", () => {
   cy.get("@apiResponse").then((response) => {
-    const corpo =
-      typeof response.body === "string"
-        ? JSON.parse(response.body)
-        : response.body;
+    const corpo = interpretarRespostaJson(
+      response,
+      "validação de campos obrigatórios no cadastro"
+    );
 
     expect(corpo).to.have.property("responseCode");
     expect(corpo.responseCode).to.eq(400);
@@ -125,10 +126,10 @@ Given("que envio uma requisição POST sem o parâmetro password", () => {
 
 Then("devo validar o erro de parâmetro password obrigatório", () => {
   cy.get("@apiResponse").then((response) => {
-    const corpo =
-      typeof response.body === "string"
-        ? JSON.parse(response.body)
-        : response.body;
+    const corpo = interpretarRespostaJson(
+      response,
+      "validação de campos obrigatórios no cadastro"
+    );
 
     expect(corpo.responseCode).to.eq(400);
     expect(corpo.message).to.eq(
@@ -143,10 +144,10 @@ Given("que envio uma requisição POST sem o parâmetro name", () => {
 
 Then("devo validar o erro de parâmetro name obrigatório", () => {
   cy.get("@apiResponse").then((response) => {
-    const corpo =
-      typeof response.body === "string"
-        ? JSON.parse(response.body)
-        : response.body;
+    const corpo = interpretarRespostaJson(
+      response,
+      "validação de campos obrigatórios no cadastro"
+    );
 
     expect(corpo.responseCode).to.eq(400);
     expect(corpo.message).to.eq(

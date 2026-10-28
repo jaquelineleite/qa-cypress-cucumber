@@ -12,7 +12,7 @@ const {
 
 module.exports = defineConfig({
   allowCypressEnv: false,
-  trashAssetsBeforeRuns: false,
+  trashAssetsBeforeRuns: true,
   e2e: {
     baseUrl: "https://www.automationexercise.com",
     specPattern: "cypress/e2e/features/*.feature",

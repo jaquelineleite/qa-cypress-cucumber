@@ -5,6 +5,9 @@ on:
     branches:
       - main
       - consolidacao-qa-automation
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -20,6 +23,9 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
+
+      - name: Clean previous test reports
+        run: node scripts/clean-reports.mjs
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v7
@@ -38,5 +44,6 @@ jobs:
           name: cypress-test-reports
           path: |
             cypress/reports/
+            cypress/evidencias/
           if-no-files-found: warn
           retention-days: 14

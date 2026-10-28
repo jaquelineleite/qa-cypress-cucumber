@@ -9,7 +9,8 @@
     "report": "node scripts/generate-report.mjs",
     "api:evidence": "node scripts/capture-api-evidencias.mjs",
     "upload:xray": "node scripts/upload-xray.mjs",
-    "test": "npm run cy:run && npm run report"
+    "test": "npm run cy:run && npm run report",
+    "precy:run": "node scripts/clean-reports.mjs"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^28.0.1",

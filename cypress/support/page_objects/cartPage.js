@@ -10,18 +10,6 @@ class CartPage {
     botaoRemoverProduto: ".cart_quantity_delete",
     botaoCheckout: ".check_out",
 
-    resumoPedido: "#cart_info",
-    comentarioPedido: "textarea[name='message']",
-    botaoPlaceOrder: "a[href='/payment']",
-
-    nomeCartao: "input[name='name_on_card']",
-    numeroCartao: "input[name='card_number']",
-    cvc: "input[name='cvc']",
-    mesExpiracao: "input[name='expiry_month']",
-    anoExpiracao: "input[name='expiry_year']",
-    botaoConfirmarPagamento: "#submit",
-
-    tituloPedidoConfirmado: "h2[data-qa='order-placed']",
   };
 
   limparCarrinho() {
@@ -124,43 +112,6 @@ class CartPage {
       .click();
   }
 
-  validarTelaCheckout() {
-    cy.url().should("include", "/checkout");
-
-    cy.contains("h2", "Address Details")
-      .should("be.visible");
-
-    cy.contains("h2", "Review Your Order")
-      .should("be.visible");
-  }
-
-  validarResumoDoPedido() {
-    cy.get(this.elementos.resumoPedido).should("be.visible");
-
-    const campos = [
-      ["nomeProduto", this.elementos.nomeProduto, "Nome do produto"],
-      ["precoProduto", this.elementos.precoProduto, "Preco do produto"],
-      ["quantidadeProduto", this.elementos.quantidadeProduto, "Quantidade"],
-      ["totalProduto", this.elementos.totalProduto, "Total do pedido"],
-    ];
-
-    campos.forEach(([alias, seletor, descricao]) => {
-      cy.get(`@${alias}`).then((valorEsperado) => {
-        cy.get(this.elementos.resumoPedido)
-          .find(seletor)
-          .first()
-          .should("be.visible")
-          .invoke("text")
-          .then((valorAtual) => {
-            expect(
-              valorAtual.trim(),
-              `${descricao}: carrinho versus checkout`
-            ).to.eq(valorEsperado);
-          });
-      });
-    });
-  }
-
   salvarDadosDoProduto() {
     cy.get(this.elementos.nomeProduto)
       .first()
@@ -191,113 +142,7 @@ class CartPage {
       });
   }
 
-  preencherComentario(comentario) {
-    cy.get(this.elementos.comentarioPedido)
-      .should("be.visible")
-      .clear()
-      .type(comentario);
-  }
-
-  clicarPlaceOrder() {
-    cy.get(this.elementos.botaoPlaceOrder)
-      .should("be.visible")
-      .click();
-  }
-
-  validarTelaPagamento() {
-    cy.url().should("include", "/payment");
-
-    cy.contains("Payment")
-      .should("be.visible");
-
-    cy.get(this.elementos.nomeCartao)
-      .should("be.visible");
-
-    cy.get(this.elementos.numeroCartao)
-      .should("be.visible");
-  }
-
-  preencherDadosPagamento(nomeCartao, numeroCartao, cvc, mes, ano) {
-    cy.get(this.elementos.nomeCartao)
-      .clear()
-      .type(nomeCartao);
-
-    cy.get(this.elementos.numeroCartao)
-      .clear()
-      .type(numeroCartao, { log: false });
-
-    cy.get(this.elementos.cvc)
-      .clear()
-      .type(cvc, { log: false });
-
-    cy.get(this.elementos.mesExpiracao)
-      .clear()
-      .type(mes);
-
-    cy.get(this.elementos.anoExpiracao)
-      .clear()
-      .type(ano);
-  }
-
-  clicarConfirmarPagamento() {
-    cy.get(this.elementos.botaoConfirmarPagamento)
-      .should("be.visible")
-      .click();
-  }
-
-  validarPedidoRealizado() {
-    cy.url().should("include", "/payment_done");
-
-    cy.get(this.elementos.tituloPedidoConfirmado)
-      .should("be.visible")
-      .and("contain.text", "Order Placed");
-
-    cy.contains(
-      "Congratulations! Your order has been confirmed!"
-    ).should("be.visible");
-  }
-
-  validarPermanenciaNaTelaPagamento() {
-    cy.url().should("include", "/payment");
-
-    cy.get(this.elementos.tituloPedidoConfirmado)
-      .should("not.exist");
-  }
-
-  validarCamposObrigatorios() {
-    cy.get(this.elementos.nomeCartao)
-      .should("have.value", "")
-      .then(($campo) => {
-        expect($campo[0].checkValidity()).to.equal(false);
-      });
-
-    cy.get(this.elementos.numeroCartao)
-      .should("have.value", "")
-      .then(($campo) => {
-        expect($campo[0].checkValidity()).to.equal(false);
-      });
-
-    cy.get(this.elementos.cvc)
-      .should("have.value", "")
-      .then(($campo) => {
-        expect($campo[0].checkValidity()).to.equal(false);
-      });
-
-    cy.get(this.elementos.mesExpiracao)
-      .should("have.value", "")
-      .then(($campo) => {
-        expect($campo[0].checkValidity()).to.equal(false);
-      });
-
-    cy.get(this.elementos.anoExpiracao)
-      .should("have.value", "")
-      .then(($campo) => {
-        expect($campo[0].checkValidity()).to.equal(false);
-      });
-  }
 }
 
 export default new CartPage();
-
-
 

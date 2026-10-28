@@ -5,6 +5,8 @@ import {
 } from "@badeball/cypress-cucumber-preprocessor";
 
 import CartPage from "../../support/page_objects/cartPage";
+import CheckoutPage from "../../support/page_objects/checkoutPage";
+import PaymentPage from "../../support/page_objects/paymentPage";
 import ProductsPage from "../../support/page_objects/productsPage";
 
 Given("que estou logado no sistema", () => {
@@ -30,31 +32,31 @@ Given("que possuo um produto no carrinho", () => {
 When("acesso o checkout", () => {
   CartPage.clicarCheckout();
 
-  CartPage.validarTelaCheckout();
+  CheckoutPage.validarTelaCheckout();
 });
 
 Then("devo visualizar os dados do produto no resumo do pedido", () => {
-  CartPage.validarResumoDoPedido();
+  CheckoutPage.validarResumoDoPedido();
 
   cy.screenshot("checkout-produto-resumo-pedido");
 });
 
 When("adiciono uma observação ao pedido", () => {
   cy.fixture("users").then((dados) => {
-    CartPage.preencherComentario(
+    CheckoutPage.preencherComentario(
       dados.checkout.orderComment
     );
   });
   });
 
 When("avanço para o pagamento", () => {
-  CartPage.clicarPlaceOrder();
-  CartPage.validarTelaPagamento();
+  CheckoutPage.clicarPlaceOrder();
+  PaymentPage.validarTelaPagamento();
 });
 
 When("informo os dados de pagamento válidos", () => {
   cy.fixture("users").then((dados) => {
-    CartPage.preencherDadosPagamento(
+    PaymentPage.preencherDadosPagamento(
       dados.payment.nameOnCard,
       dados.payment.cardNumber,
       dados.payment.cvc,
@@ -65,13 +67,13 @@ When("informo os dados de pagamento válidos", () => {
 });
 
 When("confirmo o pagamento", () => {
-  CartPage.clicarConfirmarPagamento();
+  PaymentPage.clicarConfirmarPagamento();
 });
 
 Then(
   "devo visualizar a confirmação de pedido realizado com sucesso",
   () => {
-    CartPage.validarPedidoRealizado();
+    PaymentPage.validarPedidoRealizado();
 
     cy.screenshot("checkout-pedido-realizado");
   }
@@ -80,13 +82,13 @@ Then(
 When(
   "tento confirmar o pagamento sem preencher os campos obrigatórios",
   () => {
-    CartPage.clicarConfirmarPagamento();
+    PaymentPage.clicarConfirmarPagamento();
   }
 );
 
 Then("o pedido não deve ser finalizado", () => {
-  CartPage.validarPermanenciaNaTelaPagamento();
-  CartPage.validarCamposObrigatorios();
+  PaymentPage.validarPermanenciaNaTelaPagamento();
+  PaymentPage.validarCamposObrigatorios();
 
   cy.screenshot("checkout-campos-obrigatorios");
 });

@@ -25,6 +25,12 @@ jobs:
         with:
           node-version: 22
 
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run security tests
+        run: npm run test:security
+
       - name: Clean previous test reports
         run: node scripts/clean-reports.mjs
 

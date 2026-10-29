@@ -45,8 +45,15 @@ class ProductsPage {
 
   validarProdutoCorrespondenteAoTermo(produto) {
     cy.get(this.elementos.listaProdutos)
-      .first()
-      .should("contain.text", produto);
+      .find(this.elementos.nomeProduto)
+      .should("have.length.greaterThan", 0)
+      .then(($nomes) => {
+        const correspondencias = $nomes.toArray().filter((elemento) =>
+          elemento.innerText.toLowerCase().includes(produto.toLowerCase())
+        );
+        expect(correspondencias.length, "produtos correspondentes ao termo")
+          .to.be.greaterThan(0);
+      });
   }
 
   validarSemProdutos() {

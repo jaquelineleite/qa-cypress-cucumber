@@ -39,10 +39,8 @@ async function autenticarNoXray() {
   });
 
   if (!response.ok) {
-    const body = await response.text();
-
     throw new Error(
-      `Falha na autenticação do Xray. HTTP ${response.status}: ${body}`
+      `Falha na autenticação do Xray. HTTP ${response.status}`
     );
   }
 
@@ -73,15 +71,14 @@ async function enviarResultado(token) {
     body: report,
   });
 
-  const responseBody = await response.text();
 
   if (!response.ok) {
     throw new Error(
-      `Falha no upload para o Xray. HTTP ${response.status}: ${responseBody}`
+      `Falha no upload para o Xray. HTTP ${response.status}`
     );
   }
 
-  return responseBody;
+  return { status: response.status };
 }
 
 async function main() {
@@ -105,7 +102,7 @@ async function main() {
     const resultado = await enviarResultado(token);
 
     console.log("Upload para o Xray concluído com sucesso.");
-    console.log(resultado);
+    console.log(`Status HTTP do upload: ${resultado.status}`);
   } catch (error) {
     console.error(`Erro no upload para o Xray: ${error.message}`);
     process.exit(1);

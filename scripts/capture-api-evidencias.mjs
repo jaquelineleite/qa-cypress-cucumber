@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { redactSensitiveData } from "./utils/redact-sensitive-data.mjs";
 
 const outputDir = path.resolve(
   "cypress/evidencias/api_trello.feature"
@@ -44,20 +45,20 @@ function preencherTemplate(template, dados) {
   return template
     .replaceAll("{{TITLE}}", escapeHtml(dados.title))
     .replaceAll("{{METHOD}}", escapeHtml(dados.method))
-    .replaceAll("{{URL}}", escapeHtml(dados.url))
+    .replaceAll("{{URL}}", escapeHtml(redactSensitiveData(dados.url)))
     .replaceAll("{{STATUS}}", escapeHtml(dados.status))
     .replaceAll("{{DATE_TIME}}", escapeHtml(dados.dateTime))
-    .replaceAll("{{BUSINESS_RULE}}", escapeHtml(dados.businessRule))
+    .replaceAll("{{BUSINESS_RULE}}", escapeHtml(redactSensitiveData(dados.businessRule)))
     .replaceAll(
       "{{REQUEST_BODY}}",
       escapeHtml(
-        JSON.stringify(dados.requestBody ?? {}, null, 2)
+        JSON.stringify(redactSensitiveData(dados.requestBody ?? {}), null, 2)
       )
     )
     .replaceAll(
       "{{RESPONSE_BODY}}",
       escapeHtml(
-        JSON.stringify(dados.responseBody ?? {}, null, 2)
+        JSON.stringify(redactSensitiveData(dados.responseBody ?? {}), null, 2)
       )
     );
 }

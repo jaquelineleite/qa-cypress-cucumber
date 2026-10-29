@@ -93,7 +93,6 @@ Given("que envio uma requisição POST sem o parâmetro email", () => {
     }).then((res) => {
       cy.wrap(res).as("apiResponse");
 
-      cy.log(`Resposta createAccount: ${JSON.stringify(res.body)}`);
     });
   });
 });

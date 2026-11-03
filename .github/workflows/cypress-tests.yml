@@ -11,10 +11,18 @@ on:
       - consolidacao-qa-automation
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: cypress-quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   cypress-tests:
     name: Cypress E2E and API Tests
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
 
     steps:
       - name: Checkout repository
